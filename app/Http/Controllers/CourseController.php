@@ -38,7 +38,7 @@ class CourseController extends Controller
 
         $course = $courses[$id];
 
-        return view('dashboard', compact('course', 'id'));
+        return view('livewire.pages.courses.detail-page', compact('course', 'id'));
     }
 
     public function video($id)

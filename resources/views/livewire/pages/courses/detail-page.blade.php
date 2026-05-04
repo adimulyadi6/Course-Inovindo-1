@@ -1,5 +1,5 @@
 <x-app-layout>
-    <flux:navbar class="flex items-center gap-2 text-zinc-400 mb-6">
+    <flux:navbar class="flex items-center gap-2 text-zinc-400 p-8 mb-6">
         <flux:navbar.item href="{{ route('courses.index') }}">
             <flux:icon.arrow-uturn-left variant="micro" />
         </flux:navbar.item>

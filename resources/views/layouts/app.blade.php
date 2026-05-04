@@ -20,7 +20,7 @@
         <x-navbar />
         <div class="flex flex-1 overflow-hidden">
             <x-sidebar />
-            <flux:main class="flex-1 !p-0 bg-[#121214] relative scroll-smooth overflow-y-auto scroll-hide">
+            <flux:main class="flex-1 !p-0 bg-[#121214] scroll-smooth overflow-y-auto scroll-hide">
                 {{ $slot }}
             </flux:main>
         </div>
