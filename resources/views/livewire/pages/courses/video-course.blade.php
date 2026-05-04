@@ -51,13 +51,13 @@
                 <button @click="open = !open" class="w-full flex items-center justify-between p-4 bg-zinc-800 hover:bg-zinc-700 transition">
                     <flux:icon.chevron-right variant="micro" class="transition-transform duration-300" ::class="open ? 'rotate-90' : ''" />
                     <div>
-                        <p class="font-semibold text-white"> Basic Of Generative AI </p>
+                        <p class="font-semibold text-white"> Basic Of {{ $course['title'] }} </p>
                         <p class="text-xs text-zinc-400"> 3 lessons </p>
                     </div>
                 </button>
                 <div x-show="open" x-transition class="bg-zinc-900 divide-y divide-zinc-800">
-                    <div class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer"> <input type="radio" name="lesson" class="accent-indigo-500"> <span class="text-sm text-zinc-200"> Generative AI Fundamental </span> </div>
-                    <div class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer"> <input type="radio" name="lesson" class="accent-indigo-500"> <span class="text-sm text-zinc-200"> Generative AI Model Analysis </span> </div>
+                    <div class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer"> <input type="radio" name="lesson" class="accent-indigo-500"> <span class="text-sm text-zinc-200"> {{ $course['title'] }} Fundamental </span> </div>
+                    <div class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer"> <input type="radio" name="lesson" class="accent-indigo-500"> <span class="text-sm text-zinc-200"> {{ $course['title'] }} Model Analysis </span> </div>
                     <div class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer"> <input type="radio" name="lesson" class="accent-indigo-500"> <span class="text-sm text-zinc-200"> AI Prompt Engineering </span> </div>
                 </div>
             </div>

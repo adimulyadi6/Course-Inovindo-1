@@ -10,7 +10,7 @@
 
     <div class="max-w-4xl mx-auto py-6">
         <div class=" flex justify-between text-center mb-12">
-            <flux:heading size="xl" class="text-4xl mb-4">Welcome, Hendriawan.</flux:heading>
+            <flux:heading size="xl" class="text-4xl mb-4">Welcome, {{ auth()->user()->name }}.</flux:heading>
             <a href="{{ route('courses.video', $id) }}">
                 <flux:button
                     variant="filled"

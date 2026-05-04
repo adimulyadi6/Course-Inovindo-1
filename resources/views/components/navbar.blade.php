@@ -20,7 +20,7 @@
 
     <flux:spacer />
 
-    <flux:navbar class="gap-4">
+    <flux:navbar class="gap-2">
         <div class="relative max-lg:hidden">
             <flux:input variant="filled" placeholder="Search" icon="magnifying-glass" class="bg-zinc-800 border-none text-sm w-48" />
         </div>
