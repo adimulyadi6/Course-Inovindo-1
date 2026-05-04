@@ -16,7 +16,7 @@
 </head>
 
 <body class="min-h-screen bg-white dark:bg-zinc-800 antialiased">
-    <div x-data="{ sidebarOpen: true }" x-cloak class=" flex flex-col h-screen bg-zinc-900 text-white">
+    <div x-data="{ sidebarOpen: false }" x-cloak class=" flex flex-col h-screen bg-zinc-900 text-white">
         <x-navbar />
         <div class="flex flex-1 overflow-hidden">
             <x-sidebar />

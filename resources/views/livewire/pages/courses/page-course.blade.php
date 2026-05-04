@@ -4,7 +4,9 @@
             <flux:heading size="xl">Courses</flux:heading>
         </div>
 
-        <div class="flex gap-2 mb-8">
+        <flux:separator/>
+
+        <div class="flex gap-2 my-8">
             <flux:button size="sm" variant="filled" class="rounded-full bg-zinc-800">All courses</flux:button>
             <flux:button size="sm" variant="ghost" class="rounded-full text-zinc-400">My courses</flux:button>
         </div>

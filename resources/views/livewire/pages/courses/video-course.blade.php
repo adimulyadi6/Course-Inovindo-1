@@ -23,7 +23,7 @@
 
             <flux:separator />
 
-            <div class="flex items-center justify-around mt-12">
+            <div class="flex items-center justify-evenly mt-6">
                 <div>
                     <flux:text>Lesson 1 of 4</flux:text>
                     <flux:heading size="xl" class="mt-3">{{ $course['title'] }} Fundamental</flux:heading>
@@ -35,7 +35,7 @@
             </div>
 
             <div class="flex justify-center mt-10">
-                <div class="w-3/4 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900">
+                <div class="w-2/3 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900">
                     <video
                         controls
                         class="w-full aspect-video bg-black">

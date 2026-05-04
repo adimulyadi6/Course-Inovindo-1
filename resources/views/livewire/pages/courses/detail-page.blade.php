@@ -1,5 +1,5 @@
 <x-app-layout>
-    <flux:navbar class="flex items-center gap-2 text-zinc-400 p-8 mb-6">
+    <flux:navbar class="flex items-center gap-2 text-zinc-400 px-6">
         <flux:navbar.item href="{{ route('courses.index') }}">
             <flux:icon.arrow-uturn-left variant="micro" />
         </flux:navbar.item>
@@ -8,7 +8,9 @@
         </flux:heading>
     </flux:navbar>
 
-    <div class="max-w-4xl mx-auto py-6">
+    <flux:separator/>
+
+    <div class="max-w-4xl mx-auto mt-6 py-6">
         <div class=" flex justify-between text-center mb-12">
             <flux:heading size="xl" class="text-4xl mb-4">Welcome, {{ auth()->user()->name }}.</flux:heading>
             <a href="{{ route('courses.video', $id) }}">
