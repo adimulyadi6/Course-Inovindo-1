@@ -11,29 +11,35 @@ class Course extends Model
     use HasFactory;
 
     protected $fillable = [
-    'title',
-    'description',
-    'price',         // 🔥
-    'thumbnail',
-    'is_published',  // 🔥
-    'user_id',
-];
+        'title',
+        'description',
+        'price',         // 🔥
+        'thumbnail',
+        'is_published',  // 🔥
+        'user_id',
+    ];
 
-    public function sections(){
+    public function sections()
+    {
         return $this->hasMany(Section::class);
     }
 
-public function instructor()
-{
-    return $this->belongsTo(User::class, 'user_id');
-}
-public function students()
-{
-    return $this->belongsToMany(User::class, 'enrollments');
-}
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class);
+    }
 
-public function modules()
-{
-    return $this->hasMany(\App\Models\Module::class);
-}
+    public function instructor()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'enrollments');
+    }
+
+    public function modules()
+    {
+        return $this->hasMany(\App\Models\Module::class);
+    }
 }
