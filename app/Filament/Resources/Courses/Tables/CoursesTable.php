@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Filament\Resources\Courses\Tables;
+
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
+
+class CoursesTable
+{
+    public static function configure(Table $table): Table
+    {
+        return $table
+            ->columns([
+
+        TextColumn::make('title')
+            ->label('Title')
+            ->searchable(),
+
+        TextColumn::make('price')
+            ->label('Price'),
+
+        TextColumn::make('instructor.name')
+            ->label('Instructor'),
+
+        IconColumn::make('is_published')
+            ->boolean()
+            ->label('Published'),
+
+        ImageColumn::make('thumbnail')
+            ->label('Thumbnail'),
+            ])
+            ->filters([
+                //
+            ])
+            ->recordActions([
+                EditAction::make(),
+            ])
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+}
