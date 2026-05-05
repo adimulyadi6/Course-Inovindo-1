@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->timestamps();
+            $table->decimal('price', 10, 2)->default(0);
+            $table->boolean('is_published')->default(false);
         });
     }
 
