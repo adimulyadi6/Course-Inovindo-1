@@ -1,67 +1,143 @@
-<x-app-layout>
-    <div class="flex flex-1">
-        <div class="flex flex-col w-full pt-5">
-            <div class="flex justify-between items-center gap-2 text-zinc-400 px-6 mb-6">
-                <div class="flex items-center gap-3">
-                    <flux:navbar.item href="{{ route('courses.show', $id) }}">
-                        <flux:icon.arrow-left variant="micro" />
-                    </flux:navbar.item>
-                    <flux:heading size="xl" class="text-white">{{ $course['title'] }}</flux:heading>
-                </div>
-                <div class="flex items-center gap-1 mr-5">
-                    <flux:navbar.item>
-                        <flux:icon.chat-bubble-bottom-center-text />
-                    </flux:navbar.item>
-                    <flux:navbar.item>
-                        <flux:icon.list-bullet />
-                    </flux:navbar.item>
-                    <flux:navbar.item>
-                        <flux:icon.bookmark />
-                    </flux:navbar.item>
-                </div>
-            </div>
-
-            <flux:separator />
-
-            <div class="flex items-center justify-evenly mt-6">
-                <div>
-                    <flux:text>Lesson 1 of 4</flux:text>
-                    <flux:heading size="xl" class="mt-3">{{ $course['title'] }} Fundamental</flux:heading>
-                </div>
-                <div class="flex items-center gap-4">
-                    <flux:button icon="arrow-left" variant="subtle" class="border"></flux:button>
-                    <flux:button icon="arrow-right" variant="ghost" class="border"></flux:button>
-                </div>
-            </div>
-
-            <div class="flex justify-center mt-10">
-                <div class="w-2/3 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900">
-                    <video
-                        controls
-                        class="w-full aspect-video bg-black">
-                        <source src="{{ asset('videos/sample-video.mp4') }}" type="video/mp4">
-                        Browser kamu tidak mendukung video.
-                    </video>
-                </div>
-            </div>
-        </div>
-        <flux:sidebar sticky class="w-80 h-screen bg-zinc-900 border-l border-zinc-800 p-4">
-            <flux:heading size="lg" class="mb-6 text-white"> Course Content </flux:heading>
-            <div x-data="{ open: true }" class="border border-zinc-800 rounded-xl overflow-hidden">
-                <button @click="open = !open" class="w-full flex items-center justify-between p-4 bg-zinc-800 hover:bg-zinc-700 transition">
-                    <flux:icon.chevron-right variant="micro" class="transition-transform duration-300" ::class="open ? 'rotate-90' : ''" />
-                    <div>
-                        <p class="font-semibold text-white"> Basic Of {{ $course['title'] }} </p>
-                        <p class="text-xs text-zinc-400"> 3 lessons </p>
+    <x-app-layout>
+        <div class="flex flex-1">
+            <div class="flex flex-col w-full pt-5">
+                <div class="flex justify-between items-center gap-2 text-zinc-400 px-6 mb-6">
+                    <div class="flex items-center gap-3">
+                        <flux:navbar.item href="{{ route('courses.show', $course->id) }}">
+                            <flux:icon.arrow-left variant="micro" />
+                        </flux:navbar.item>
+                        <flux:heading size="xl" class="text-white">{{ $course->title }}</flux:heading>
                     </div>
-                </button>
-                <div x-show="open" x-transition class="bg-zinc-900 divide-y divide-zinc-800">
-                    <div class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer"> <input type="radio" name="lesson" class="accent-indigo-500"> <span class="text-sm text-zinc-200"> {{ $course['title'] }} Fundamental </span> </div>
-                    <div class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer"> <input type="radio" name="lesson" class="accent-indigo-500"> <span class="text-sm text-zinc-200"> {{ $course['title'] }} Model Analysis </span> </div>
-                    <div class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer"> <input type="radio" name="lesson" class="accent-indigo-500"> <span class="text-sm text-zinc-200"> AI Prompt Engineering </span> </div>
+                    <div class="flex items-center gap-1 mr-5">
+                        <flux:navbar.item>
+                            <flux:icon.chat-bubble-bottom-center-text />
+                        </flux:navbar.item>
+                        <flux:navbar.item>
+                            <flux:icon.list-bullet />
+                        </flux:navbar.item>
+                        <flux:navbar.item>
+                            <flux:icon.bookmark />
+                        </flux:navbar.item>
+                    </div>
+                </div>
+
+                <flux:separator />
+
+                <div class="flex items-center justify-evenly mt-6">
+                    <div>
+                        <flux:text>
+                            Lesson {{ $currentLessonIndex + 1 }} of {{ $totalLessons }}
+                        </flux:text>
+                        <flux:heading size="xl" class="mt-3">
+                            {{ $lesson->title }}
+                        </flux:heading>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        {{-- PREVIOUS --}}
+                        @if ($previousLesson)
+                        <a href="{{ route('courses.video', ['course' => $course->id,'lesson' => $previousLesson->id]) }}">
+                            <flux:button
+                                icon="arrow-left"
+                                variant="ghost"
+                                class="border">
+                            </flux:button>
+                        </a>
+                        @else
+                        <flux:button
+                            icon="arrow-left"
+                            variant="subtle"
+                            disabled
+                            class="border opacity-40 cursor-not-allowed">
+                        </flux:button>
+                        @endif
+                        {{-- NEXT --}}
+                        @if ($nextLesson)
+                        <a href="{{ route('courses.video', ['course' => $course->id,'lesson' => $nextLesson->id]) }}">
+                            <flux:button
+                                icon="arrow-right"
+                                variant="ghost"
+                                class="border">
+                            </flux:button>
+                        </a>
+                        @else
+                        <flux:button
+                            icon="arrow-right"
+                            variant="subtle"
+                            disabled
+                            class="border opacity-40 cursor-not-allowed">
+                        </flux:button>
+                        @endif
+                    </div>
+                </div>
+                <div class="flex justify-center mt-10">
+                    <div class="w-2/3 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900">
+                        <iframe
+                            class="w-full aspect-video rounded-2xl"
+                            src="{{ str_replace('watch?v=', 'embed/', $lesson->video_url) }}"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+                <flux:separator class="mt-6" />
+                <div class=" flex items-center self-center mt-6">
+                    <flux:button variant="filled">Complete Lesson<flux:icon.arrow-right variant="micro" /></flux:button>
                 </div>
             </div>
-        </flux:sidebar>
-    </div>
 
-</x-app-layout>
+            <flux:sidebar sticky class="w-80 h-screen bg-zinc-900 border-l border-zinc-800 p-4 overflow-y-auto">
+                <flux:heading size="lg" class="mb-6 text-white">
+                    Course Content
+                </flux:heading>
+                <div class="border border-zinc-800 rounded-xl overflow-hidden divide-y divide-zinc-800">
+                    @foreach ($course->modules as $module)
+                    <div
+                        x-data="{ open: true }"
+                        class="bg-zinc-900">
+                        {{-- MODULE HEADER --}}
+                        <button
+                            @click="open = !open"
+                            class="w-full flex items-center justify-between p-4 bg-zinc-800 hover:bg-zinc-700 transition">
+                            <div class="flex items-center gap-3">
+                                <flux:icon.chevron-right
+                                    variant="micro"
+                                    class="transition-transform duration-300"
+                                    x-bind:class="open ? 'rotate-90' : ''" />
+                                <div class="text-left">
+                                    <p class="font-semibold text-white">
+                                        {{ $module->title }}
+                                    </p>
+                                    <p class="text-xs text-zinc-400">
+                                        {{ $module->lessons->count() }} lessons
+                                    </p>
+                                </div>
+                            </div>
+                        </button>
+                        {{-- LESSON LIST --}}
+                        <div
+                            x-show="open"
+                            x-transition
+                            class="divide-y divide-zinc-800 bg-zinc-900">
+                            @foreach ($module->lessons as $lesson)
+                            <a
+                                href="{{ route('courses.video', ['course' => $course->id,'lesson' => $lesson->id]) }}"
+                                class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer
+                                {{ request()->route('lesson') == $lesson->id ? 'bg-zinc-800' : '' }}">
+                                <input
+                                    type="radio"
+                                    name="lesson"
+                                    class="accent-indigo-500"
+                                    {{ request()->route('lesson') == $lesson->id ? 'checked' : '' }}>
+                                <span class="text-sm text-zinc-200">
+                                    {{ $lesson->title }}
+                                </span>
+                            </a>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </flux:sidebar>
+        </div>
+    </x-app-layout>

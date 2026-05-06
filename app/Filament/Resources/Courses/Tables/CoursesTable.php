@@ -17,26 +17,28 @@ class CoursesTable
         return $table
             ->columns([
 
-        TextColumn::make('title')
-            ->label('Title')
-            ->searchable(),
+                TextColumn::make('title')
+                    ->label('Title')
+                    ->searchable(),
 
-        TextColumn::make('price')
-            ->label('Price'),
+                TextColumn::make('price')
+                    ->label('Price'),
 
-        TextColumn::make('instructor.name')
-            ->label('Instructor'),
+                TextColumn::make('instructor.name')
+                    ->label('Instructor'),
 
-        IconColumn::make('is_published')
-            ->boolean()
-            ->label('Published'),
+                IconColumn::make('is_published')
+                    ->boolean()
+                    ->label('Published'),
 
-        ImageColumn::make('thumbnail')
-            ->label('Thumbnail'),
+                ImageColumn::make('thumbnail')
+                    ->label('Thumbnail')
+                    ->getStateUsing(fn($record) => asset('storage/' . $record->thumbnail))
             ])
             ->filters([
                 //
             ])
+
             ->recordActions([
                 EditAction::make(),
             ])

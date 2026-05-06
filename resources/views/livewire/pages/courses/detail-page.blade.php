@@ -4,16 +4,16 @@
             <flux:icon.arrow-uturn-left variant="micro" />
         </flux:navbar.item>
         <flux:heading size="lg" class="text-white">
-            {{ $course['title'] }}
+            {{ $course->title }}
         </flux:heading>
     </flux:navbar>
 
-    <flux:separator/>
+    <flux:separator />
 
     <div class="max-w-4xl mx-auto mt-6 py-6">
         <div class=" flex justify-between text-center mb-12">
             <flux:heading size="xl" class="text-4xl mb-4">Welcome, {{ auth()->user()->name }}.</flux:heading>
-            <a href="{{ route('courses.video', $id) }}">
+            <a href="{{ route('courses.video', ['course' => $course->id,'lesson' => $course->modules->first()?->lessons->first()?->id]) }}">
                 <flux:button
                     variant="filled"
                     class="bg-indigo-600 hover:bg-indigo-700 px-10 rounded-full">
@@ -35,27 +35,77 @@
 
         <div class="space-y-6">
             <div class="flex justify-between items-center">
-                <div>
+                <div class="flex flex-col gap-4">
                     <flux:heading size="lg">Content</flux:heading>
-                    <flux:text class="text-zinc-500">5 sections • {{ $course['lessons'] }} lessons</flux:text>
+                    <div class="flex gap-2">
+                        <flux:text class="text-zinc-500">
+                            {{ $course->modules->count() }} Modules
+                        </flux:text>
+                        <flux:separator vertical />
+                        <flux:text class="text-zinc-500">
+                            {{ $course->modules->sum(fn ($module) => $module->lessons->count()) }} Lessons
+                        </flux:text>
+                    </div>
                 </div>
-                <flux:button variant="ghost" size="sm" class="text-zinc-500">Collapse all sections</flux:button>
+                <flux:button variant="ghost" size="sm" class="text-zinc-500">Collapse all modules</flux:button>
             </div>
 
             <div class="border border-zinc-800 rounded-xl bg-zinc-900/20 overflow-hidden">
-                <div class="p-4 bg-zinc-800/30 flex justify-between items-center border-b border-zinc-800">
-                    <div class="flex items-center gap-3">
-                        <flux:icon.chevron-down variant="micro" />
-                        <span class="font-semibold">Instalasi & Setup CapCut PC</span>
+
+                @foreach ($course->modules as $module)
+
+                <div
+                    x-data="{ open: false }"
+                    class="border-b border-zinc-800 last:border-b-0">
+
+                    <!-- Module Header -->
+                    <button
+                        @click="open = !open"
+                        class="w-full p-4 bg-zinc-800/30 flex justify-between items-center hover:bg-zinc-800/50 transition">
+                        <div class="flex items-center gap-3">
+
+                            <flux:icon.chevron-right
+                                variant="micro"
+                                class="transition-transform duration-300"
+                                ::class="open ? 'rotate-90' : ''" />
+
+                            <span class="font-semibold">
+                                {{ $module->title }}
+                            </span>
+
+                        </div>
+
+                        <span class="text-xs text-zinc-500">
+                            {{ $module->lessons->count() }} lessons
+                        </span>
+                    </button>
+
+                    <!-- Lessons -->
+                    <div
+                        x-show="open"
+                        x-transition
+                        class="divide-y divide-zinc-800/40 bg-zinc-900/40">
+
+                        @foreach ($module->lessons as $lesson)
+
+                        <div class="p-4 flex items-center gap-4 hover:bg-zinc-800/40 cursor-pointer group">
+
+                            <div class="w-2.5 h-2.5 rounded-full border border-zinc-600 bg-zinc-200 group-hover:bg-white transition-colors"></div>
+
+                            <flux:text size="sm">
+                                {{ $lesson->title }}
+                            </flux:text>
+
+                        </div>
+
+                        @endforeach
+
                     </div>
-                    <span class="text-xs text-zinc-500">4 lessons</span>
+
                 </div>
-                <div class="divide-y divide-zinc-800/40">
-                    <div class="p-4 flex items-center gap-4 hover:bg-zinc-800/40 cursor-pointer group">
-                        <div class="w-2.5 h-2.5 rounded-full border border-zinc-600 bg-zinc-200 group-hover:bg-white transition-colors"></div>
-                        <flux:text size="sm">Perbedaan CapCut Versi PC dan Mobile</flux:text>
-                    </div>
-                </div>
+
+                @endforeach
+
             </div>
         </div>
     </div>

@@ -2,72 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 
 class CourseController extends Controller
 {
     public function index()
     {
-        return view('livewire.pages.courses.page-course');
+        $courses = Course::all();
+
+        return view('livewire.pages.courses.page-course', compact('courses'));
     }
 
     public function show($id)
     {
-        $courses = [
-
-            1 => [
-                'title' => 'Video Editing Mastery',
-                'lessons' => 174,
-            ],
-
-            2 => [
-                'title' => 'Generative AI',
-                'lessons' => 90,
-            ],
-
-            3 => [
-                'title' => 'Welcome Checklist',
-                'lessons' => 20,
-            ],
-
-            4 => [
-                'title' => 'AI-Driven Content Creation',
-                'lessons' => 50,
-            ],
-
-        ];
-
-        $course = $courses[$id];
-
+        $course = Course::with('modules.lessons')->findOrFail($id);
         return view('livewire.pages.courses.detail-page', compact('course', 'id'));
     }
 
-    public function video($id)
+    public function video($courseId, $lessonId)
     {
-        $courses = [
+        $course = Course::with('modules.lessons')
+            ->findOrFail($courseId);
 
-            1 => [
-                'title' => 'Video Editing Mastery',
-            ],
+        $lesson = \App\Models\Lesson::with('module.lessons')
+            ->findOrFail($lessonId);
 
-            2 => [
-                'title' => 'Generative AI',
-            ],
+        $currentModule = $lesson->module;
 
-            3 => [
-                'title' => 'Welcome Checklist',
-            ],
+        $moduleLessons = $currentModule->lessons;
 
-            4 => [
-                'title' => 'AI-Driven Content Creation',
-            ],
+        $currentIndex = $moduleLessons
+            ->search(fn($item) => $item->id === $lesson->id);
 
-        ];
+        $previousLesson = $moduleLessons[$currentIndex - 1] ?? null;
 
-        $course = $courses[$id];
+        $nextLesson = $moduleLessons[$currentIndex + 1] ?? null;
+
+        $currentLessonIndex = $moduleLessons
+            ->search(fn($item) => $item->id === $lesson->id);
+
+        $totalLessons = $moduleLessons->count();
 
         return view(
             'livewire.pages.courses.video-course',
-            compact('course', 'id')
+            compact(
+                'course',
+                'lesson',
+                'currentLessonIndex',
+                'totalLessons',
+                'previousLesson',
+                'nextLesson'
+            )
         );
     }
 }

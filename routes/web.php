@@ -21,8 +21,10 @@ Route::get('/course', [CourseController::class, 'index'])
 Route::get('/courses/{id}', [CourseController::class, 'show'])
     ->name('courses.show');
 
-Route::get('/courses/{id}/video', [CourseController::class, 'video'])
-    ->name('courses.video');
+Route::get(
+    '/courses/{course}/lessons/{lesson}',
+    [CourseController::class, 'video']
+)->name('courses.video');
 
 Route::post('/logout', function (Request $request) {
 

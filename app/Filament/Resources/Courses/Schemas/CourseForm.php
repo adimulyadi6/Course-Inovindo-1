@@ -38,6 +38,7 @@ class CourseForm
             FileUpload::make('thumbnail')
                 ->label('Thumbnail')
                 ->image()
+                ->disk('public')
                 ->directory('courses')
                 ->nullable(),
 

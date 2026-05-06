@@ -10,14 +10,16 @@ class Lesson extends Model
     use HasFactory;
 
     protected $fillable = [
-        'section_id',
+        'module_id',
         'title',
+        'description',
         'video_url',
-        'content',
+        'duration',
+        'is_preview',
+        'order',
     ];
-
-    public function section()
+    public function module()
     {
-        return $this->belongsTo(Section::class);
+        return $this->belongsTo(Module::class);
     }
 }
