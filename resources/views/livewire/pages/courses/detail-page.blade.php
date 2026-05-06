@@ -13,13 +13,18 @@
     <div class="max-w-4xl mx-auto mt-6 py-6">
         <div class=" flex justify-between text-center mb-12">
             <flux:heading size="xl" class="text-4xl mb-4">Welcome, {{ auth()->user()->name }}.</flux:heading>
-            <a href="{{ route('courses.video', ['course' => $course->id,'lesson' => $course->modules->first()?->lessons->first()?->id]) }}">
-                <flux:button
-                    variant="filled"
-                    class="bg-indigo-600 hover:bg-indigo-700 px-10 rounded-full">
-                    Start
-                </flux:button>
+            @php
+            $firstLesson = $course->firstLesson();
+            @endphp
+
+            @if ($firstLesson)
+            <a href="{{ route('courses.video', [
+        'course' => $course->id,
+        'lesson' => $firstLesson->id
+    ]) }}">
+                <flux:button>Start</flux:button>
             </a>
+            @endif
         </div>
 
         <flux:heading size="lg" class="text-zinc-300 my-6">Progress</flux:heading>

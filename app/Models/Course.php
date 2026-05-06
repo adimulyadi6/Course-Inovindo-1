@@ -42,4 +42,11 @@ class Course extends Model
     {
         return $this->hasMany(\App\Models\Module::class);
     }
+
+    public function firstLesson()
+    {
+        return Lesson::whereHas('module', function ($q) {
+            $q->where('course_id', $this->id);
+        })->first();
+    }
 }
