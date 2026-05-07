@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\LeaderboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,12 @@ Route::get('/courses/{course}/lessons/{lesson}', [CourseController::class, 'vide
 
 Route::get('/events', [EventController::class, 'index'])
     ->name('events.index');
+
+Route::get('/events/1', [EventController::class, 'show'])
+    ->name('events-detail');
+
+route::get('/leaderboard', [LeaderboardController::class, 'index'])
+    ->name('leaderboard.index');
 
 Route::post('/logout', function (Request $request) {
 
