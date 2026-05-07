@@ -24,7 +24,7 @@ class UserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserCircle;
 
-protected static string|UnitEnum|null $navigationGroup = 'LMS';
+protected static string|UnitEnum|null $navigationGroup = 'User Management';
 protected static ?string $navigationLabel = 'Instructors';
 protected static ?string $recordTitleAttribute = 'name';
 public static function getEloquentQuery(): Builder
