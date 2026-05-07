@@ -15,7 +15,7 @@
         <flux:navbar.item href="{{ route('home') }}">Home</flux:navbar.item>
         <flux:navbar.item href="{{ route('courses.index') }}">Courses</flux:navbar.item>
         <flux:navbar.item href="{{ route('events.index') }}">Events</flux:navbar.item>
-        <flux:navbar.item href="#">Leaderboard</flux:navbar.item>
+        <flux:navbar.item href="{{ route('leaderboard.index') }}">Leaderboard</flux:navbar.item>
     </flux:navbar>
 
     <flux:spacer />

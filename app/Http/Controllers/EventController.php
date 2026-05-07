@@ -10,4 +10,9 @@ class EventController extends Controller
     {
         return view('livewire.pages.courses.events');
     }
+
+    public function show()
+    {
+        return view('livewire.pages.courses.events-detail');
+    }
 }
