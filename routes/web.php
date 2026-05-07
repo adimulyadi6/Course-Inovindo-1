@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\CourseController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\EventController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
@@ -21,10 +22,11 @@ Route::get('/course', [CourseController::class, 'index'])
 Route::get('/courses/{id}', [CourseController::class, 'show'])
     ->name('courses.show');
 
-Route::get(
-    '/courses/{course}/lessons/{lesson}',
-    [CourseController::class, 'video']
-)->name('courses.video');
+Route::get('/courses/{course}/lessons/{lesson}', [CourseController::class, 'video'])
+    ->name('courses.video');
+
+Route::get('/events', [EventController::class, 'index'])
+    ->name('events.index');
 
 Route::post('/logout', function (Request $request) {
 
