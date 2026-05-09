@@ -35,7 +35,9 @@
         <flux:dropdown position="top" align="end">
             <flux:profile circle avatar="https://fluxui.dev/img/demo/user.png" class="ml-2" />
             <flux:menu>
-                <flux:menu.item icon="user-circle">My Profile</flux:menu.item>
+                <a href="{{ route('profile') }}">
+                    <flux:menu.item icon="user-circle">My Profile</flux:menu.item>
+                </a>
                 <flux:menu.separator />
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

@@ -125,7 +125,7 @@
                                 class="p-4 flex items-center gap-3 hover:bg-zinc-800 transition cursor-pointer
                                 {{ request()->route('lesson') == $lesson->id ? 'bg-zinc-800' : '' }}">
                                 <input
-                                    type="radio"
+                                    type="checkbox"
                                     name="lesson"
                                     class="accent-indigo-500"
                                     {{ request()->route('lesson') == $lesson->id ? 'checked' : '' }}>

@@ -34,8 +34,13 @@
                             </div>
                         </div>
                         <div class="mt-3 flex items-center gap-1">
+                            @if (!$course->is_published)
                             <flux:icon.lock-closed variant="micro" class="text-zinc-500" />
-                            <span class="text-xs text-zinc-500">Private space</span>
+                            <span class="text-xs text-zinc-500">Private Course</span>
+                            @else
+                            <flux:icon.eye variant="micro" class="text-zinc-500" />
+                            <span class="text-xs text-green-500">Published</span>
+                            @endif
                         </div>
                     </div>
                 </div>
