@@ -33,7 +33,8 @@ class CoursesTable
 
                 ImageColumn::make('thumbnail')
                     ->label('Thumbnail')
-                    ->getStateUsing(fn($record) => asset('storage/' . $record->thumbnail))
+                    ->disk('public')
+                    
             ])
             ->filters([
                 //
