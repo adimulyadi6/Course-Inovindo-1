@@ -71,10 +71,10 @@
                 </div>
                 <div class="flex justify-center mt-10">
                     <div class="w-2/3 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900">
-                        <iframe
-                            class="w-full aspect-video rounded-2xl"
-                            src="{{ str_replace('watch?v=', 'embed/', $lesson->video_url) }}"
-                            title="YouTube video player"
+                         <iframe
+                            width="100%"
+                            height="500"
+                            src="{{ $lesson->youtube_embed_url }}"
                             frameborder="0"
                             allowfullscreen>
                         </iframe>

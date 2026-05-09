@@ -22,4 +22,21 @@ class Lesson extends Model
     {
         return $this->belongsTo(Module::class);
     }
+
+    public function getYoutubeEmbedUrlAttribute()
+        {
+            if (!$this->video_url) {
+                return null;
+            }
+
+            preg_match(
+                '/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\&\?\/]+)/',
+                $this->video_url,
+                $matches
+            );
+
+            return isset($matches[1])
+                ? 'https://www.youtube.com/embed/' . $matches[1]
+                : null;
+        }
 }
