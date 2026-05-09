@@ -20,7 +20,7 @@ class LessonResource extends Resource
     protected static string|\UnitEnum|null $navigationGroup = 'Learning Management';
     protected static ?int $navigationSort = 3;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Square3Stack3d;
 
     protected static ?string $recordTitleAttribute = 'title';
 

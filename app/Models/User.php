@@ -32,13 +32,13 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    // ✅ PINDAHKAN KE SINI
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->role === 'admin';
     }
 
-    // ✅ Helper role (opsional tapi bagus)
+
     public function isAdmin()
     {
         return $this->role === 'admin';
