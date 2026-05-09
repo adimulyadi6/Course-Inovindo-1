@@ -14,23 +14,29 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class StudentResource extends Resource
 {
     protected static ?string $model = User::class;
     protected static string|\UnitEnum|null $navigationGroup = 'User Management';
-protected static ?string $navigationLabel = 'Students';
+    protected static ?string $navigationLabel = 'Students';
 
     protected static ?int $navigationSort = 5;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::AcademicCap;
 
     protected static ?string $recordTitleAttribute = 'Student';
-        public static function getEloquentQuery(): Builder
-{
-    return parent::getEloquentQuery()
-        ->where('role', 'student');
-}
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()?->role === 'admin';
+    }
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('role', 'student');
+    }
 
     public static function form(Schema $schema): Schema
     {

@@ -8,6 +8,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Illuminate\Support\Facades\Auth;
 
 class CourseForm
 {
@@ -49,11 +50,12 @@ class CourseForm
 
             // INSTRUCTOR (opsional, kalau ada user_id)
             Select::make('user_id')
+                ->hidden(fn() => Auth::user()?->role === 'instructor')
                 ->label('Instructor')
                 ->relationship(
                     name: 'instructor',
                     titleAttribute: 'name',
-                    modifyQueryUsing: fn ($query) => $query->where('role', 'instructor')
+                    modifyQueryUsing: fn($query) => $query->where('role', 'instructor')
                 )
                 ->searchable()
                 ->nullable()

@@ -15,6 +15,8 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use UnitEnum;
+use Illuminate\Support\Facades\Auth;
+
 
 class InstructorResource extends Resource
 {
@@ -22,15 +24,20 @@ class InstructorResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserGroup;
     protected static string|UnitEnum|null $navigationGroup = 'User Management';
-protected static ?string $navigationLabel = 'Instructors';
+    protected static ?string $navigationLabel = 'Instructors';
     protected static ?int $navigationSort = 4;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()?->role === 'admin';
+    }
     public static function getEloquentQuery(): Builder
-{
-    return parent::getEloquentQuery()
-        ->where('role', 'instructor');
-}
+    {
+        return parent::getEloquentQuery()
+            ->where('role', 'instructor');
+    }
 
     public static function form(Schema $schema): Schema
     {
