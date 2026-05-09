@@ -16,7 +16,7 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
-        'role', // ✅ tambahkan ini
+        'role',
     ];
 
     protected $hidden = [
@@ -35,7 +35,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->role === 'admin';
+        return in_array($this->role, ['admin', 'instructor']);
     }
 
 
