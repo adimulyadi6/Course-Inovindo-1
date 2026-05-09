@@ -6,7 +6,7 @@
                         <flux:navbar.item href="{{ route('courses.show', $course->id) }}">
                             <flux:icon.arrow-left variant="micro" />
                         </flux:navbar.item>
-                        <flux:heading size="xl" class="text-white">{{ $course->title }}</flux:heading>
+                        <flux:heading size="xl" class="dark:text-white">{{ $course->title }}</flux:heading>
                     </div>
                     <div class="flex items-center gap-1 mr-5">
                         <flux:navbar.item>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="flex justify-center mt-10">
                     <div class="w-2/3 rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-900">
-                         <iframe
+                        <iframe
                             width="100%"
                             height="500"
                             src="{{ $lesson->youtube_embed_url }}"
@@ -86,8 +86,8 @@
                 </div>
             </div>
 
-            <flux:sidebar sticky class="w-80 h-screen bg-zinc-900 border-l border-zinc-800 p-4 overflow-y-auto">
-                <flux:heading size="lg" class="mb-6 text-white">
+            <flux:sidebar sticky class="w-80 h-screen bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white border-l border-zinc-800 p-4 overflow-y-auto">
+                <flux:heading size="lg" class="mb-6 dark:text-white">
                     Course Content
                 </flux:heading>
                 <div class="border border-zinc-800 rounded-xl overflow-hidden divide-y divide-zinc-800">
@@ -98,14 +98,14 @@
                         {{-- MODULE HEADER --}}
                         <button
                             @click="open = !open"
-                            class="w-full flex items-center justify-between p-4 bg-zinc-800 hover:bg-zinc-700 transition">
+                            class="w-full flex items-center justify-between p-4 bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white hover:bg-zinc-700 transition">
                             <div class="flex items-center gap-3">
                                 <flux:icon.chevron-right
                                     variant="micro"
                                     class="transition-transform duration-300"
                                     x-bind:class="open ? 'rotate-90' : ''" />
                                 <div class="text-left">
-                                    <p class="font-semibold text-white">
+                                    <p class="font-semibold dark:text-white">
                                         {{ $module->title }}
                                     </p>
                                     <p class="text-xs text-zinc-400">
@@ -118,7 +118,7 @@
                         <div
                             x-show="open"
                             x-transition
-                            class="divide-y divide-zinc-800 bg-zinc-900">
+                            class="divide-y divide-zinc-800 bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white">
                             @foreach ($module->lessons as $lesson)
                             <a
                                 href="{{ route('courses.video', ['course' => $course->id,'lesson' => $lesson->id]) }}"
@@ -129,7 +129,7 @@
                                     name="lesson"
                                     class="accent-indigo-500"
                                     {{ request()->route('lesson') == $lesson->id ? 'checked' : '' }}>
-                                <span class="text-sm text-zinc-200">
+                                <span class="text-sm dark:text-zinc-200">
                                     {{ $lesson->title }}
                                 </span>
                             </a>
