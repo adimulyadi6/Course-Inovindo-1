@@ -18,6 +18,10 @@ use Filament\Tables\Table;
 class StudentResource extends Resource
 {
     protected static ?string $model = User::class;
+    protected static string|\UnitEnum|null $navigationGroup = 'User Management';
+protected static ?string $navigationLabel = 'Students';
+
+    protected static ?int $navigationSort = 5;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
