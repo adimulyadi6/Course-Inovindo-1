@@ -16,11 +16,11 @@
 </head>
 
 <body class="min-h-screen bg-white dark:bg-zinc-800 antialiased">
-    <div x-data="{ sidebarOpen: false }" x-cloak class=" flex flex-col h-screen bg-zinc-900 text-white">
+    <div x-data="{ sidebarOpen: false }" x-cloak class=" flex flex-col h-screen bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white">
         <x-navbar />
         <div class="flex flex-1 overflow-hidden">
             <x-sidebar />
-            <flux:main class="flex-1 !p-0 bg-[#121214] scroll-smooth overflow-y-auto scroll-hide">
+            <flux:main class="flex-1 !p-0 bg-white dark:bg-[#121214] scroll-smooth overflow-y-auto scroll-hide">
                 {{ $slot }}
             </flux:main>
         </div>

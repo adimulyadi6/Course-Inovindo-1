@@ -3,7 +3,7 @@
         <flux:navbar.item href="{{ route('courses.index') }}">
             <flux:icon.arrow-uturn-left variant="micro" />
         </flux:navbar.item>
-        <flux:heading size="lg" class="text-white">
+        <flux:heading size="lg" class="dark:text-white">
             {{ $course->title }}
         </flux:heading>
     </flux:navbar>
@@ -30,7 +30,7 @@
         <flux:heading size="lg" class="text-zinc-300 my-6">Progress</flux:heading>
         <div class="bg-zinc-900/40 border border-zinc-800 p-8 rounded-2xl mb-10">
             <div class="flex justify-between items-end mb-4">
-                <flux:text class="text-zinc-400 text-sm">Completed 0 of 174 lessons </flux:text>
+                <flux:text class="dark:text-white text-sm">Completed 0 of 174 lessons </flux:text>
                 <span class="ml-2 font-bold text-white">0%</span>
             </div>
             <div class="w-full bg-zinc-800 h-2.5 rounded-full overflow-hidden">

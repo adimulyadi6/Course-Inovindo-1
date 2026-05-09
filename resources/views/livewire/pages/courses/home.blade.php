@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="flex justify-between items-center gap-2 text-zinc-400 p-8 mb-6">
-        <flux:heading size="xl" class="text-white">Welcome {{ auth()->user()->name }}</flux:heading>
+        <flux:heading size="xl" class="dark:text-white">Welcome {{ auth()->user()->name }}</flux:heading>
         <div class="flex items-center gap-2">
             <flux:avatar.group>
                 <flux:avatar circle size="sm" src="https://unavatar.io/x/taylorotwell" />

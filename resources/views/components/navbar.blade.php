@@ -1,7 +1,7 @@
-<flux:header class="bg-zinc-900 border-b border-zinc-800 px-6 py-2 z-20">
+<flux:header class="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white border-b border-zinc-800 px-6 py-2 z-20">
     <div class="flex items-center gap-4">
         <div class="flex items-center gap-2 cursor-pointer group">
-            <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Inovindo Course" class="text-white" />
+            <flux:brand href="{{ route('home') }}" logo="https://fluxui.dev/img/demo/logo.png" name="Inovindo Course" class="text-white" />
             <button type="button" @click="sidebarOpen = ! sidebarOpen" class="p-1 hover:bg-zinc-800 rounded transition-colors">
                 <flux:icon.chevron-down variant="micro" class="text-zinc-400 transition-transform" ::class="sidebarOpen ? '' : '-rotate-90'" />
             </button>
@@ -22,7 +22,7 @@
 
     <flux:navbar class="gap-2">
         <div class="relative max-lg:hidden">
-            <flux:input variant="filled" placeholder="Search" icon="magnifying-glass" class="bg-zinc-800 border-none text-sm w-48" />
+            <flux:input variant="filled" placeholder="Search" icon="magnifying-glass" class="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white border-none text-sm w-48" />
         </div>
         <div class="relative inline-block">
             <flux:navbar.item icon="bell" href="#" />
@@ -38,6 +38,11 @@
                 <a href="{{ route('profile') }}">
                     <flux:menu.item icon="user-circle">My Profile</flux:menu.item>
                 </a>
+                <flux:radio.group variant="segmented" x-model="$flux.appearance">
+                    <flux:radio value="light" icon="sun" />
+                    <flux:radio value="dark" icon="moon" />
+                    <flux:radio value="system" icon="computer-desktop" />
+                </flux:radio.group>
                 <flux:menu.separator />
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

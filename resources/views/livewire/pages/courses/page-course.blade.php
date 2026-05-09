@@ -1,5 +1,5 @@
 <x-app-layout>
-    <flux:main class="flex-1 p-8 bg-[#121214]">
+    <flux:main class="flex-1 p-8 dark:bg-[#121214]">
         <div class="flex items-center justify-between mb-6">
             <flux:heading size="xl">Courses</flux:heading>
         </div>
