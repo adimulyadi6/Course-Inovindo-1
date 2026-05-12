@@ -1,49 +1,79 @@
-<flux:header class="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white border-b border-zinc-800 px-6 py-2 z-20">
+<flux:header class="bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 px-6 py-3 z-20">
     <div class="flex items-center gap-4">
         <div class="flex items-center gap-2 cursor-pointer group">
-            <flux:brand href="{{ route('home') }}" logo="https://fluxui.dev/img/demo/logo.png" name="Inovindo Course" class="text-white" />
-            <button type="button" @click="sidebarOpen = ! sidebarOpen" class="p-1 hover:bg-zinc-800 rounded transition-colors">
-                <flux:icon.chevron-down variant="micro" class="text-zinc-400 transition-transform" ::class="sidebarOpen ? '' : '-rotate-90'" />
+            <flux:brand
+                href="{{ route('home') }}"
+                logo="https://fluxui.dev/img/demo/logo.png"
+                name="Inovindo Course"
+                class="text-zinc-900 dark:text-white" />
+
+            <button
+                type="button"
+                @click="sidebarOpen = !sidebarOpen"
+                class="p-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl transition-colors">
+                <flux:icon.chevron-down
+                    variant="micro"
+                    class="text-zinc-400 transition-transform"
+                    ::class="sidebarOpen ? '' : '-rotate-90'" />
             </button>
         </div>
-
     </div>
 
     <flux:spacer />
 
+    <!-- Main Navigation -->
     <flux:navbar class="-mb-px">
-        <flux:navbar.item href="{{ route('home') }}">Home</flux:navbar.item>
-        <flux:navbar.item href="{{ route('courses.index') }}">Courses</flux:navbar.item>
-        <flux:navbar.item href="{{ route('events.index') }}">Events</flux:navbar.item>
-        <flux:navbar.item href="{{ route('leaderboard.index') }}">Leaderboard</flux:navbar.item>
+        <flux:navbar.item href="{{ route('home') }}" wire:navigate>Home</flux:navbar.item>
+        <flux:navbar.item href="{{ route('courses.index') }}" wire:navigate>Courses</flux:navbar.item>
+        <flux:navbar.item href="{{ route('events.index') }}" wire:navigate>Events</flux:navbar.item>
+        <flux:navbar.item href="{{ route('leaderboard.index') }}" wire:navigate>Leaderboard</flux:navbar.item>
     </flux:navbar>
 
     <flux:spacer />
 
+    <!-- Right Side Items -->
     <flux:navbar class="gap-2">
+        <!-- Search -->
         <div class="relative max-lg:hidden">
-            <flux:input variant="filled" placeholder="Search" icon="magnifying-glass" class="bg-white text-zinc-900 dark:bg-zinc-900 dark:text-white border-none text-sm w-48" />
+            <flux:input
+                variant="filled"
+                placeholder="Search courses..."
+                icon="magnifying-glass"
+                class="bg-zinc-100 dark:bg-zinc-900 
+                       text-zinc-900 dark:text-white w-56" />
         </div>
+
+        <!-- Notification -->
         <div class="relative inline-block">
             <flux:navbar.item icon="bell" href="#" />
-            <span class="absolute top-1 right-3.5 block h-1.5 w-1.5 rounded-full ring-2 ring-white bg-red-500"></span>
+            <span class="absolute top-1 right-3.5 block h-1.5 w-1.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-zinc-950"></span>
         </div>
+
         <flux:navbar.item icon="chat-bubble-left-right" href="#" />
         <flux:navbar.item icon="user-group" href="#" />
         <flux:navbar.item icon="bookmark" href="#" />
 
+        <!-- Profile Dropdown -->
         <flux:dropdown position="top" align="end">
-            <flux:profile circle avatar="https://fluxui.dev/img/demo/user.png" class="ml-2" />
+            <flux:profile
+                circle
+                avatar="https://fluxui.dev/img/demo/user.png"
+                class="ml-2" />
+
             <flux:menu>
                 <a href="{{ route('profile') }}">
                     <flux:menu.item icon="user-circle">My Profile</flux:menu.item>
                 </a>
-                <flux:radio.group variant="segmented" x-model="$flux.appearance">
+
+                <!-- Theme Switcher -->
+                <flux:radio.group x-data variant="segmented" x-model="$flux.appearance">
                     <flux:radio value="light" icon="sun" />
                     <flux:radio value="dark" icon="moon" />
                     <flux:radio value="system" icon="computer-desktop" />
                 </flux:radio.group>
+
                 <flux:menu.separator />
+
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <flux:menu.item
