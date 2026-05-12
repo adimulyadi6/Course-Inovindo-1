@@ -33,19 +33,19 @@ class EventForm
 
             Select::make('event_type')
                 ->options([
-                    'webinar' => 'Webinar',
-                    'workshop' => 'Workshop',
-                    'bootcamp' => 'Bootcamp',
-                    'seminar' => 'Seminar',
-                    'mentoring' => 'Mentoring',
+                    'Webinar' => 'Webinar',
+                    'Workshop' => 'Workshop',
+                    'Bootcamp' => 'Bootcamp',
+                    'Seminar' => 'Seminar',
+                    'Mentoring' => 'Mentoring',
                 ])
                 ->required(),
 
             Select::make('delivery_type')
                 ->options([
-                    'online' => 'Online',
-                    'offline' => 'Offline',
-                    'hybrid' => 'Hybrid',
+                    'Online' => 'Online',
+                    'Offline' => 'Offline',
+                    'Hybrid' => 'Hybrid',
                 ])
                 ->required(),
 
@@ -82,10 +82,10 @@ class EventForm
 
             Select::make('status')
                 ->options([
-                    'draft' => 'Draft',
-                    'upcoming' => 'Upcoming',
-                    'live' => 'Live',
-                    'ended' => 'Ended',
+                    'Draft' => 'Draft',
+                    'Upcoming' => 'Upcoming',
+                    'Live' => 'Live',
+                    'Ended' => 'Ended',
                 ])
                 ->default('draft'),
 
