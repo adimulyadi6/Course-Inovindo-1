@@ -13,9 +13,9 @@ class Course extends Model
     protected $fillable = [
         'title',
         'description',
-        'price',         // 🔥
+        'price',
         'thumbnail',
-        'is_published',  // 🔥
+        'is_published',
         'user_id',
     ];
 

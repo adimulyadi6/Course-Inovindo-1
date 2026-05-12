@@ -13,6 +13,10 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
+
+
+
 
 class EventResource extends Resource
 {
@@ -21,6 +25,11 @@ class EventResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::CalendarDays;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function canViewAny(): bool
+    {
+        return Auth::user()?->role === 'admin';
+    }
 
     public static function form(Schema $schema): Schema
     {
