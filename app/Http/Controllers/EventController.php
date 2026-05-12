@@ -2,17 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
     public function index()
     {
-        return view('livewire.pages.courses.events');
+        $featuredEvent = Event::latest()->first();
+
+        $events = Event::latest()
+            ->skip(1)
+            ->take(10)
+            ->get();
+            
+        return view('livewire.pages.courses.events', compact('featuredEvent', 'events'));
     }
 
-    public function show()
+    public function show($slug)
     {
-        return view('livewire.pages.courses.events-detail');
+        $event = Event::where('slug', $slug)
+            ->firstOrFail();
+        return view('livewire.pages.courses.events-detail', compact('event'));
     }
 }

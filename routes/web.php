@@ -29,8 +29,8 @@ Route::get('/courses/{course}/lessons/{lesson}', [CourseController::class, 'vide
 Route::get('/events', [EventController::class, 'index'])
     ->name('events.index');
 
-Route::get('/events/1', [EventController::class, 'show'])
-    ->name('events-detail');
+Route::get('/events/{slug}', [EventController::class, 'show'])
+    ->name('events.show');
 
 route::get('/leaderboard', [LeaderboardController::class, 'index'])
     ->name('leaderboard.index');

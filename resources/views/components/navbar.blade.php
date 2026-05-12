@@ -61,16 +61,28 @@
                 class="ml-2" />
 
             <flux:menu>
-                <a href="{{ route('profile') }}">
-                    <flux:menu.item icon="user-circle">My Profile</flux:menu.item>
-                </a>
+                <div class="flex justify-between items-center">
+                    <a href="{{ route('profile') }}">
+                        <flux:menu.item icon="user-circle">My Profile</flux:menu.item>
+                    </a>
 
-                <!-- Theme Switcher -->
-                <flux:radio.group x-data variant="segmented" x-model="$flux.appearance">
-                    <flux:radio value="light" icon="sun" />
-                    <flux:radio value="dark" icon="moon" />
-                    <flux:radio value="system" icon="computer-desktop" />
-                </flux:radio.group>
+                    <!-- Theme Switcher -->
+                    <flux:button
+                        x-data
+                        x-on:click="$flux.dark = ! $flux.dark"
+                        variant="subtle"
+                        aria-label="Toggle dark mode"
+                        class="hover:bg-zinc-100 dark:hover:bg-zinc-800">
+
+                        <!-- Icon Dinamis -->
+                        <span x-show="$flux.dark" class="transition-transform">
+                            <flux:icon.sun variant="micro" />
+                        </span>
+                        <span x-show="!$flux.dark" class="transition-transform">
+                            <flux:icon.moon variant="micro" />
+                        </span>
+                    </flux:button>
+                </div>
 
                 <flux:menu.separator />
 

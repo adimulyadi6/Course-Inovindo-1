@@ -22,12 +22,13 @@
                 New Event
             </flux:heading>
 
-            <a href="{{ route('events-detail') }}">
+            @if ($featuredEvent)
+            <a href="{{ route('events.show', $featuredEvent->slug) }}">
                 <flux:card class="mb-10 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:shadow-xl transition-all">
                     <!-- Event Image -->
                     <div class="relative w-full h-80 bg-zinc-900 rounded-t-2xl overflow-hidden">
                         <img
-                            src="https://images.unsplash.com/photo-1777047023610-570a81998609?q=80&w=1170&auto=format&fit=crop"
+                            src="{{ asset('storage/' . $featuredEvent->thumbnail) }}""
                             class="w-full h-full object-cover"
                             alt="Event Thumbnail" />
                     </div>
@@ -35,15 +36,15 @@
                     <div class="p-6">
                         <div class="flex items-start justify-between gap-4">
                             <flux:heading size="xl" class="text-zinc-900 dark:text-white !font-bold leading-tight">
-                                Live Mentoring: Daily Office Hours
+                                {{ $featuredEvent->title }}
                             </flux:heading>
                             <flux:badge rounded color="purple" class="px-5 py-1 whitespace-nowrap font-medium">
-                                RSVP
+                                {{ $featuredEvent->delivery_type }}
                             </flux:badge>
                         </div>
 
                         <flux:text class="text-zinc-500 dark:text-zinc-400 mt-2">
-                            Wednesday, April 29, 2026 • 8:00 - 8:30 PM WIB
+                            {{ $featuredEvent->start_time->format('l, F d, Y • h:i A') }}
                         </flux:text>
 
                         <div class="flex flex-wrap items-center gap-3 mt-6">
@@ -62,65 +63,68 @@
                                 class="px-5 py-2.5 text-sm font-medium border border-zinc-300 dark:border-zinc-700">
                                 <div class="flex items-center gap-2">
                                     <flux:icon.video-camera variant="micro" />
-                                    <span>Live Stream</span>
+                                    <span>{{ $featuredEvent->delivery_type }}</span>
                                 </div>
                             </flux:badge>
                         </div>
                     </div>
                 </flux:card>
             </a>
+            @endif
 
             <!-- Monthly Section -->
             <flux:heading size="xl" class="mb-5 text-zinc-900 dark:text-white !font-bold">
                 April 2026
             </flux:heading>
 
-            <flux:card class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 hover:shadow-xl transition-all">
-                <div class="flex flex-col md:flex-row gap-6 items-start">
-                    <!-- Thumbnail -->
-                    <img
-                        src="https://images.unsplash.com/photo-1777047023610-570a81998609?q=80&w=1170&auto=format&fit=crop"
-                        alt="Event"
-                        class="w-full md:w-56 h-24 object-cover rounded-2xl" />
+            @foreach ($events as $event)
 
-                    <!-- Content -->
-                    <div class="flex-1 min-w-0">
-                        <flux:heading size="lg" class="text-zinc-900 dark:text-white">
-                            Live Mentoring: Daily Office Hours
-                        </flux:heading>
+            <a href="{{ route('events.show', $event->slug) }}">
 
-                        <div class="flex items-center gap-2 mt-3 text-zinc-500 dark:text-zinc-400">
-                            <flux:icon.calendar-days variant="micro" />
-                            <flux:text class="text-sm">Thursday, April 30, 2026 • 8:00 - 8:30 PM WIB</flux:text>
+                <flux:card class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 hover:shadow-xl transition-all mb-4">
+
+                    <div class="flex flex-col md:flex-row gap-6 items-start">
+
+                        <img
+                            src="{{ asset('storage/' . $event->thumbnail) }}"
+                            alt="Event"
+                            class="w-full md:w-56 h-24 object-cover rounded-2xl" />
+
+                        <div class="flex-1 min-w-0">
+
+                            <flux:heading size="lg" class="text-zinc-900 dark:text-white">
+                                {{ $event->title }}
+                            </flux:heading>
+
+                            <div class="flex items-center gap-2 mt-3 text-zinc-500 dark:text-zinc-400">
+
+                                <flux:icon.calendar-days variant="micro" />
+
+                                <flux:text class="text-sm">
+                                    {{ $event->start_time->format('l, F d, Y • h:i A') }}
+                                </flux:text>
+
+                            </div>
+
+                            <div class="flex items-center gap-2 mt-2 text-zinc-500 dark:text-zinc-400">
+
+                                <flux:icon.video-camera variant="micro" />
+
+                                <flux:text class="text-sm">
+                                    {{ $event->delivery_type }}
+                                </flux:text>
+
+                            </div>
+
                         </div>
 
-                        <div class="flex items-center gap-2 mt-2 text-zinc-500 dark:text-zinc-400">
-                            <flux:icon.video-camera variant="micro" />
-                            <flux:text class="text-sm">Live Stream</flux:text>
-                        </div>
                     </div>
 
-                    <!-- Status -->
-                    <flux:dropdown>
-                        <flux:button
-                            icon-trailing="chevron-down"
-                            variant="ghost"
-                            class="!rounded-full border border-zinc-300 dark:border-zinc-700 whitespace-nowrap">
-                            <div class="flex items-center gap-2">
-                                <flux:icon.check-circle variant="micro" class="text-green-500" />
-                                <span class="font-medium text-zinc-700 dark:text-zinc-200">Going</span>
-                            </div>
-                        </flux:button>
-                        <flux:menu>
-                            <flux:menu.radio.group>
-                                <flux:menu.radio checked>Going</flux:menu.radio>
-                                <flux:menu.radio>Interested</flux:menu.radio>
-                                <flux:menu.radio>Not Going</flux:menu.radio>
-                            </flux:menu.radio.group>
-                        </flux:menu>
-                    </flux:dropdown>
-                </div>
-            </flux:card>
+                </flux:card>
+
+            </a>
+
+            @endforeach
 
         </div>
 
