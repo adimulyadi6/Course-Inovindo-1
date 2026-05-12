@@ -106,7 +106,7 @@
                             <flux:icon.video-camera class="size-5 text-zinc-500 dark:text-zinc-400" />
                         </div>
                         <div>
-                            <flux:heading class="text-base font-medium text-zinc-900 dark:text-white">Live Stream</flux:heading>
+                            <flux:heading class="text-base font-medium text-zinc-900 dark:text-white">{{ $event->delivery_type }}</flux:heading>
                         </div>
                     </div>
 
