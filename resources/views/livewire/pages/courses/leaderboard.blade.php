@@ -42,7 +42,9 @@
                     <div class="text-right">
                         <flux:badge color="amber" class="rounded-full px-5 py-2 gap-2 text-sm font-medium">
                             <flux:icon.trophy variant="mini" />
-                            Level 1 • Newbie
+                            Level 1
+                            <flux:separator vertical />
+                            Newbie
                         </flux:badge>
                         <div class="flex items-center justify-end gap-2 mt-4">
                             <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">
@@ -57,15 +59,15 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
                     @php
                     $ranks = [
-                        ['Newbie', '0 points', true],
-                        ['Explorer', '10 points', false],
-                        ['Contributor', '80 points', false],
-                        ['Player', '160 points', false],
-                        ['Builder', '320 points', false],
-                        ['Catalyst', '600 points', false],
-                        ['Operator', '900 points', false],
-                        ['Pro', '1800 points', false],
-                        ['Legend', '3000 points', false],
+                    ['Newbie', '0 points', true],
+                    ['Explorer', '10 points', false],
+                    ['Contributor', '80 points', false],
+                    ['Player', '160 points', false],
+                    ['Builder', '320 points', false],
+                    ['Catalyst', '600 points', false],
+                    ['Operator', '900 points', false],
+                    ['Pro', '1800 points', false],
+                    ['Legend', '3000 points', false],
                     ];
                     @endphp
 
@@ -76,9 +78,9 @@
                                     ? 'bg-amber-500 text-black border-amber-500' 
                                     : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border-zinc-300 dark:border-zinc-700' }}">
                             @if ($active)
-                                1
+                            1
                             @else
-                                <flux:icon.lock-closed variant="mini" />
+                            <flux:icon.lock-closed variant="mini" />
                             @endif
                         </div>
                         <div>
@@ -111,10 +113,10 @@
 
                 @php
                 $leaders = [
-                    ['Muhammad Tanzil', 'Never stop learning until you die', 60],
-                    ['Ahmad Suyudi', 'AI Explorer', 60],
-                    ['Wiwid Wahyudi', 'Creative Builder', 60],
-                    ['Keri Yanto', 'AI bukan pengganti manusia 🚀', 60],
+                ['Muhammad Tanzil', 'Never stop learning until you die', 60],
+                ['Ahmad Suyudi', 'AI Explorer', 60],
+                ['Wiwid Wahyudi', 'Creative Builder', 60],
+                ['Keri Yanto', 'AI bukan pengganti manusia 🚀', 60],
                 ];
                 @endphp
 
@@ -125,42 +127,42 @@
                         <div class="w-10 text-center">
                             @if ($index < 3)
                                 <div class="w-9 h-9 rounded-full bg-amber-500 text-black font-bold flex items-center justify-center text-lg">
-                                    {{ $index + 1 }}
-                                </div>
-                            @else
-                                <div class="text-xl font-bold text-zinc-400 dark:text-zinc-500">
-                                    {{ $index + 1 }}
-                                </div>
-                            @endif
+                                {{ $index + 1 }}
                         </div>
-
-                        <!-- Avatar -->
-                        <flux:avatar
-                            size="md"
-                            circle
-                            src="https://i.pravatar.cc/150?img={{ $index + 10 }}" />
-
-                        <!-- User Info -->
-                        <div>
-                            <flux:heading size="sm" class="text-zinc-900 dark:text-white">
-                                {{ $name }}
-                            </flux:heading>
-                            <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">
-                                {{ $bio }}
-                            </flux:text>
+                        @else
+                        <div class="text-xl font-bold text-zinc-400 dark:text-zinc-500">
+                            {{ $index + 1 }}
                         </div>
+                        @endif
                     </div>
 
-                    <!-- Points -->
-                    <div class="text-right">
-                        <div class="text-emerald-600 dark:text-emerald-400 font-bold text-xl">
-                            +{{ $points }}
-                        </div>
-                        <flux:text class="text-xs text-zinc-400">points</flux:text>
+                    <!-- Avatar -->
+                    <flux:avatar
+                        size="md"
+                        circle
+                        src="https://i.pravatar.cc/150?img={{ $index + 10 }}" />
+
+                    <!-- User Info -->
+                    <div>
+                        <flux:heading size="sm" class="text-zinc-900 dark:text-white">
+                            {{ $name }}
+                        </flux:heading>
+                        <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">
+                            {{ $bio }}
+                        </flux:text>
                     </div>
                 </div>
-                @endforeach
-            </flux:card>
+
+                <!-- Points -->
+                <div class="text-right">
+                    <div class="text-emerald-600 dark:text-emerald-400 font-bold text-xl">
+                        +{{ $points }}
+                    </div>
+                    <flux:text class="text-xs text-zinc-400">points</flux:text>
+                </div>
+        </div>
+        @endforeach
+        </flux:card>
 
         </div>
     </flux:main>

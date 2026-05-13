@@ -12,8 +12,18 @@
 
         <!-- Filter Tabs -->
         <div class="flex gap-2 mb-8">
-            <flux:button variant="filled" class="rounded-full">All Courses</flux:button>
-            <flux:button variant="ghost" class="rounded-full">My Courses</flux:button>
+            <a href="{{ route('courses.index') }}">
+                <flux:button
+                    variant="{{ request('search') ? 'ghost' : 'filled' }}"
+                    class="rounded-full">
+                    All Courses
+                </flux:button>
+            </a>
+            <flux:button
+                variant="ghost"
+                class="rounded-full">
+                My Courses
+            </flux:button>
         </div>
 
         <!-- Courses Grid -->
@@ -29,7 +39,7 @@
                     <div class="aspect-video bg-zinc-900 relative overflow-hidden">
                         <img
                             src="{{ asset('storage/' . $course->thumbnail) }}"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             alt="{{ $course->title }}" />
                     </div>
 
@@ -56,11 +66,11 @@
                         <!-- Status -->
                         <div class="mt-4 flex items-center gap-2">
                             @if (!$course->is_published)
-                                <flux:icon.lock-closed variant="micro" class="text-amber-500" />
-                                <span class="text-xs font-medium text-amber-500">Private Course</span>
+                            <flux:icon.lock-closed variant="micro" class="text-amber-500" />
+                            <span class="text-xs font-medium text-amber-500">Private Course</span>
                             @else
-                                <flux:icon.eye variant="micro" class="text-emerald-500" />
-                                <span class="text-xs font-medium text-emerald-500">Published</span>
+                            <flux:icon.eye variant="micro" class="text-emerald-500" />
+                            <span class="text-xs font-medium text-emerald-500">Published</span>
                             @endif
                         </div>
                     </div>
