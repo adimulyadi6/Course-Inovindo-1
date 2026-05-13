@@ -29,7 +29,7 @@
                     <div class="relative w-full h-80 bg-zinc-900 rounded-t-2xl overflow-hidden">
                         <img
                             src="{{ asset('storage/' . $featuredEvent->thumbnail) }}""
-                            class="w-full h-full object-cover"
+                            class=" w-full h-full object-cover"
                             alt="Event Thumbnail" />
                     </div>
 
@@ -49,12 +49,47 @@
 
                         <div class="flex flex-wrap items-center gap-3 mt-6">
                             <!-- Badge 1: Starts in 6 hours -->
+                            @php
+                            $now = now();
+
+                            $isUpcoming = $now->lt($featuredEvent->start_time);
+                            $isLive = $now->between($featuredEvent->start_time, $featuredEvent->end_time);
+                            $isEnded = $now->gt($featuredEvent->end_time);
+                            @endphp
+
+                            @if ($isUpcoming)
+
                             <flux:badge
                                 rounded
                                 color="green"
-                                class="px-5 py-2.5 text-sm font-semibold bg-green-100 dark:bg-white text-green-700 dark:text-green-600">
-                                Starts in 6 hours
+                                class="px-5 py-2.5 text-sm font-semibold">
+
+                                Starts {{ $featuredEvent->start_time->diffForHumans() }}
+
                             </flux:badge>
+
+                            @elseif ($isLive)
+
+                            <flux:badge
+                                rounded
+                                color="red"
+                                class="px-5 py-2.5 text-sm font-bold animate-pulse">
+
+                                🔴 LIVE
+
+                            </flux:badge>
+
+                            @elseif ($isEnded)
+
+                            <flux:badge
+                                rounded
+                                class="px-5 py-2.5 text-sm font-semibold bg-red-600 text-white">
+
+                                Ended
+
+                            </flux:badge>
+
+                            @endif
 
                             <!-- Badge 2: Live Stream -->
                             <flux:badge

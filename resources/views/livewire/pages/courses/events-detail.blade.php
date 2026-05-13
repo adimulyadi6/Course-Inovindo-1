@@ -111,17 +111,48 @@
                     </div>
 
                     <div class="flex items-start gap-4">
-                        <div class="p-3 bg-zinc-100 dark:bg-zinc-800 rounded-2xl">
-                            <flux:icon.calendar-date-range class="size-5 text-zinc-500 dark:text-zinc-400" />
-                        </div>
                         <div>
-                            <flux:heading class="text-base font-medium text-zinc-900 dark:text-white">
-                                Repeats every weekday
-                            </flux:heading>
-                            <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">(Monday to Friday)</flux:text>
-                            <flux:link href="#" class="text-blue-600 dark:text-blue-500 text-sm mt-2 inline-block">
-                                Show all events
-                            </flux:link>
+                            @php
+                            $title = strtolower($event->title);
+
+                            $repeatText = null;
+                            $repeatSubText = null;
+
+                            if (str_contains($title, 'daily')) {
+                            $repeatText = 'Repeats every weekday';
+                            $repeatSubText = '(Monday to Friday)';
+                            }
+
+                            elseif (str_contains($title, 'weekly')) {
+                            $repeatText = 'Repeats every week';
+                            $repeatSubText = '(Every week)';
+                            }
+
+                            elseif (str_contains($title, 'monthly')) {
+                            $repeatText = 'Repeats every month';
+                            $repeatSubText = '(Once every month)';
+                            }
+                            @endphp
+                            @if ($repeatText)
+                            <div class="flex items-start gap-4">
+                                <div class="p-3 bg-zinc-100 dark:bg-zinc-800 rounded-2xl">
+                                    <flux:icon.calendar-date-range class="size-5 text-zinc-500 dark:text-zinc-400" />
+                                </div>
+                                <div>
+                                    <flux:heading class="text-base font-medium text-zinc-900 dark:text-white">
+                                        {{ $repeatText }}
+                                    </flux:heading>
+                                    <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">
+                                        {{ $repeatSubText }}
+                                    </flux:text>
+                                    <flux:link href="#" class="text-blue-600 dark:text-blue-500 text-sm mt-2 inline-block">
+                                        Show all events
+                                    </flux:link>
+                                </div>
+
+                            </div>
+                            @endif
+
                         </div>
                     </div>
 
@@ -130,7 +161,13 @@
                             <flux:icon.calendar-days class="size-5 text-zinc-500 dark:text-zinc-400" />
                         </div>
                         <flux:heading class="text-base font-medium text-zinc-900 dark:text-white">
-                            This event ended 18 hours ago
+                            @if (now()->lt($event->start_time))
+                            Starts {{ $event->start_time->diffForHumans() }}
+                            @elseif (now()->between($event->start_time, $event->end_time))
+                            🔴 Event is Live Now
+                            @else
+                            Ended {{ $event->end_time->diffForHumans() }}
+                            @endif
                         </flux:heading>
                     </div>
                 </div>

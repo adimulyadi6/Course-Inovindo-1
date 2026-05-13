@@ -35,12 +35,15 @@
     <flux:navbar class="gap-2">
         <!-- Search -->
         <div class="relative max-lg:hidden">
-            <flux:input
-                variant="filled"
-                placeholder="Search courses..."
-                icon="magnifying-glass"
-                class="bg-zinc-100 dark:bg-zinc-900 
-                       text-zinc-900 dark:text-white w-56" />
+            <form action="{{ route('courses.index') }}" method="GET">
+                <flux:input
+                    name="search"
+                    value="{{ request('search') }}"
+                    variant="filled"
+                    placeholder="Search courses..."
+                    icon="magnifying-glass"
+                    class="bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white w-56" />
+            </form>
         </div>
 
         <!-- Notification -->

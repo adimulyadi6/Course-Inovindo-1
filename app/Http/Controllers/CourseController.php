@@ -8,9 +8,22 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::all();
+        $search = request('search');
 
-        return view('livewire.pages.courses.page-course', compact('courses'));
+        $courses = Course::query()
+
+            ->when($search, function ($query) use ($search) {
+
+                $query->where('title', 'like', '%' . $search . '%');
+            })
+
+            ->latest()
+            ->get();
+
+        return view(
+            'livewire.pages.courses.page-course',
+            compact('courses', 'search')
+        );
     }
 
     public function show($id)

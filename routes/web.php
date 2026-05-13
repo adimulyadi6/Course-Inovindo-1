@@ -17,7 +17,7 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::get('/course', [CourseController::class, 'index'])
+Route::get('/courses', [CourseController::class, 'index'])
     ->name('courses.index');
 
 Route::get('/courses/{id}', [CourseController::class, 'show'])
