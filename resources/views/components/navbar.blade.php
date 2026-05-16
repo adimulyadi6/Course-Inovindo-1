@@ -60,7 +60,9 @@
         <flux:dropdown position="top" align="end">
             <flux:profile
                 circle
-                avatar="https://fluxui.dev/img/demo/user.png"
+                avatar="{{ auth()->user()->avatar
+        ? asset('storage/' . auth()->user()->avatar)
+        : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) }}"
                 class="ml-2" />
 
             <flux:menu>
