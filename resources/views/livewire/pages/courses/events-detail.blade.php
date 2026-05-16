@@ -83,16 +83,16 @@
                 <div class="flex items-center gap-4">
                     <flux:card variant="subtle" class="flex flex-col items-center justify-center !p-4 w-[68px] bg-zinc-100 dark:bg-zinc-800">
                         <span class="text-3xl font-bold text-zinc-900 dark:text-white">
-                            {{ $event->start_time->format('d') }}
-                        </span> <span class="text-xs uppercase font-semibold tracking-widest text-zinc-500 dark:text-zinc-400">{{ $event->start_time->format('M') }}</span>
+                            {{ $event->start_time->translatedFormat('d') }}
+                        </span> <span class="text-xs uppercase font-semibold tracking-widest text-zinc-500 dark:text-zinc-400">{{ $event->start_time->translatedFormat('M') }}</span>
                     </flux:card>
                     <div>
                         <flux:heading level="3" class="font-semibold text-zinc-900 dark:text-white">
-                            {{ $event->start_time->format('l, F d') }}
+                            {{ $event->start_time->translatedFormat('l, F d') }}
                         </flux:heading>
                         <flux:text class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
-                            {{ $event->start_time->format('h:i A') }}
-                            - {{ $event->end_time->format('h:i A') }}
+                            {{ $event->start_time->translatedFormat('h:i A') }}
+                            - {{ $event->end_time->translatedFormat('h:i A') }}
                             WIB
                         </flux:text>
                     </div>
@@ -162,11 +162,11 @@
                         </div>
                         <flux:heading class="text-base font-medium text-zinc-900 dark:text-white">
                             @if (now()->lt($event->start_time))
-                            Starts {{ $event->start_time->diffForHumans() }}
+                            Dimulai {{ $event->start_time->diffForHumans() }}
                             @elseif (now()->between($event->start_time, $event->end_time))
                             🔴 Event is Live Now
                             @else
-                            Ended {{ $event->end_time->diffForHumans() }}
+                            Berakhir {{ $event->end_time->diffForHumans() }}
                             @endif
                         </flux:heading>
                     </div>

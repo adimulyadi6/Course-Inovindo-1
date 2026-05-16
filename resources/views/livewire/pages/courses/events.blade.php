@@ -44,7 +44,7 @@
                         </div>
 
                         <flux:text class="text-zinc-500 dark:text-zinc-400 mt-2">
-                            {{ $featuredEvent->start_time->format('l, F d, Y • h:i A') }}
+                            {{ $featuredEvent->start_time->translatedFormat('l, F d, Y • h:i A') }}
                         </flux:text>
 
                         <div class="flex flex-wrap items-center gap-3 mt-6">
@@ -64,7 +64,7 @@
                                 color="green"
                                 class="px-5 py-2.5 text-sm font-semibold">
 
-                                Starts {{ $featuredEvent->start_time->diffForHumans() }}
+                                Dimulai {{ $featuredEvent->start_time->diffForHumans() }}
 
                             </flux:badge>
 
@@ -85,7 +85,7 @@
                                 rounded
                                 class="px-5 py-2.5 text-sm font-semibold bg-red-600 text-white">
 
-                                Ended
+                                Berakhir
 
                             </flux:badge>
 
