@@ -109,7 +109,7 @@
 
             <!-- Monthly Section -->
             <flux:heading size="xl" class="mb-5 text-zinc-900 dark:text-white !font-bold">
-                April 2026
+                {{ $events->first()?->start_time->translatedFormat('F Y') }}
             </flux:heading>
 
             @foreach ($events as $event)

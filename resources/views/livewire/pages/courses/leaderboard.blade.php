@@ -11,6 +11,32 @@
         <flux:separator class="mb-10" />
 
         <div class="max-w-5xl mx-auto">
+            @php
+
+            $currentPoints = auth()->user()->points ?? 0;
+
+            $ranks = [
+            ['name' => 'Newbie', 'points' => 0],
+            ['name' => 'Explorer', 'points' => 10],
+            ['name' => 'Contributor', 'points' => 80],
+            ['name' => 'Player', 'points' => 160],
+            ['name' => 'Builder', 'points' => 320],
+            ['name' => 'Catalyst', 'points' => 600],
+            ['name' => 'Operator', 'points' => 900],
+            ['name' => 'Pro', 'points' => 1800],
+            ['name' => 'Legend', 'points' => 3000],
+            ];
+
+            $currentRank = collect($ranks)
+            ->filter(fn ($rank) => $currentPoints >= $rank['points'])
+            ->last();
+
+            $currentLevel = collect($ranks)
+            ->search($currentRank) + 1;
+
+            $nextRank = $ranks[$currentLevel] ?? null;
+
+            @endphp
 
             <!-- Hero Top Rank -->
             <flux:card class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-8 shadow-xl">
@@ -21,19 +47,21 @@
                             <flux:avatar
                                 size="xl"
                                 circle
-                                src="https://i.pravatar.cc/300" />
+                                src="{{ auth()->user()->avatar
+        ? asset('storage/' . auth()->user()->avatar)
+        : 'https://ui-avatars.com/api/?name=' . urlencode(auth()->user()->name) }}" />
                             <div class="absolute -bottom-1 -right-1">
                                 <div class="w-8 h-8 rounded-full bg-amber-500 text-black text-sm font-bold flex items-center justify-center border-4 border-white dark:border-zinc-900">
-                                    1
+                                    {{ $currentLevel }}
                                 </div>
                             </div>
                         </div>
                         <div>
                             <flux:heading size="xl" class="text-zinc-900 dark:text-white">
-                                Hendriawan
+                                {{ auth()->user()->name }}
                             </flux:heading>
                             <flux:text class="text-zinc-500 dark:text-zinc-400 mt-1">
-                                0 points
+                                {{ auth()->user()->points ?? 0 }} points
                             </flux:text>
                         </div>
                     </div>
@@ -42,13 +70,19 @@
                     <div class="text-right">
                         <flux:badge color="amber" class="rounded-full px-5 py-2 gap-2 text-sm font-medium">
                             <flux:icon.trophy variant="mini" />
-                            Level 1
+                            Level {{ $currentLevel }}
                             <flux:separator vertical />
-                            Newbie
+                            {{ $currentRank['name'] }}
                         </flux:badge>
                         <div class="flex items-center justify-end gap-2 mt-4">
                             <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">
-                                10 points to level up
+
+                                @if ($nextRank)
+                                {{ $nextRank['points'] - $currentPoints }} points to level up
+                                @else
+                                Max rank reached
+                                @endif
+
                             </flux:text>
                             <flux:icon.question-mark-circle class="size-4 text-zinc-400" />
                         </div>
@@ -57,38 +91,26 @@
 
                 <!-- Rank Progress -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                    @foreach ($ranks as $index => $rank)
                     @php
-                    $ranks = [
-                    ['Newbie', '0 points', true],
-                    ['Explorer', '10 points', false],
-                    ['Contributor', '80 points', false],
-                    ['Player', '160 points', false],
-                    ['Builder', '320 points', false],
-                    ['Catalyst', '600 points', false],
-                    ['Operator', '900 points', false],
-                    ['Pro', '1800 points', false],
-                    ['Legend', '3000 points', false],
-                    ];
-                    @endphp
-
-                    @foreach ($ranks as [$name, $points, $active])
-                    <div class="flex items-center gap-4">
+                    $active = $currentPoints >= $rank['points'];
+                    @endphp <div class="flex items-center gap-4">
                         <div class="w-11 h-11 rounded-full border flex items-center justify-center text-lg font-semibold
                                 {{ $active 
                                     ? 'bg-amber-500 text-black border-amber-500' 
                                     : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-500 border-zinc-300 dark:border-zinc-700' }}">
                             @if ($active)
-                            1
+                            {{ $index + 1 }}
                             @else
                             <flux:icon.lock-closed variant="mini" />
                             @endif
                         </div>
                         <div>
                             <flux:heading size="sm" class="{{ $active ? 'text-zinc-900 dark:text-white' : 'text-zinc-500 dark:text-zinc-400' }}">
-                                {{ $name }}
+                                {{ $rank['name'] }}
                             </flux:heading>
                             <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">
-                                {{ $points }}
+                                {{ $rank['points'] }} points
                             </flux:text>
                         </div>
                     </div>
